@@ -53,7 +53,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/not_success_message"
+                  "$ref": "#/components/schemas/success_message"
                 }
               }
             }
@@ -95,7 +95,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/not_success_message"
+                  "$ref": "#/components/schemas/success_message"
                 }
               }
             }
@@ -137,7 +137,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/not_success_message"
+                  "$ref": "#/components/schemas/success_message"
                 }
               }
             }
@@ -179,7 +179,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/not_success_message"
+                  "$ref": "#/components/schemas/success_message"
                 }
               }
             }
@@ -233,30 +233,10 @@
       "success_message": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean",
-            "format": "Boolean",
-            "example": true
-          },
           "message": {
             "type": "string",
             "format": "message",
-            "example": "Успешное выполнение"
-          }
-        }
-      },
-      "not_success_message": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean",
-            "format": "Boolean",
-            "example": false
-          },
-          "message": {
-            "type": "string",
-            "format": "message",
-            "example": "Неудачное выполнение"
+            "example": "Сообщение пользователю"
           }
         }
       },
