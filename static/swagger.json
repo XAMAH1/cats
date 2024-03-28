@@ -1,0 +1,310 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger СatsShop - OpenAPI 3.0",
+    "description": "Документация к API",
+    "contact": {
+      "email": "cuperopen@mail.ru"
+    },
+    "version": "v0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://88.206.63.184:5423/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Работа с пользователем"
+    }
+  ],
+  "paths": {
+    "/user/register": {
+      "post": {
+        "tags": [
+          "Работа с пользователем"
+        ],
+        "summary": "Регистрация",
+        "description": "Регистрация нового пользователя в системе",
+        "operationId": "registerNewUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/register_user"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/not_success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/code/register": {
+      "post": {
+        "tags": [
+          "Работа с пользователем"
+        ],
+        "summary": "Код регистрации пользователя",
+        "description": "Получение кода на почту пользователя (проверка валидности почты)",
+        "operationId": "registerNewUserCode",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/register_code_mail"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message_code"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/not_success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/code/reset": {
+      "post": {
+        "tags": [
+          "Работа с пользователем"
+        ],
+        "summary": "Код востановления пароля",
+        "description": "Получение кода на почту пользователя",
+        "operationId": "resetUserPasswordCode",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/register_code_mail"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message_code"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/not_success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/reset/password": {
+      "put": {
+        "tags": [
+          "Работа с пользователем"
+        ],
+        "summary": "Изменение пароля пользователя",
+        "description": "Сброс пароля пользователя",
+        "operationId": "resetPasswordUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reset_password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation. После успешной смены пароля на посту пользоваетля прийдёт сообщение о смнене пароля",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/not_success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "register_user": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "format": "login",
+            "example": "test"
+          },
+          "mail": {
+            "type": "string",
+            "format": "mail",
+            "example": "test@test.ru"
+          },
+          "age": {
+            "type": "string",
+            "format": "date (Именно в таком формате)",
+            "example": "20 10 1999"
+          },
+          "firstname": {
+            "type": "string",
+            "format": "Имя",
+            "example": "Иван"
+          },
+          "surname": {
+            "type": "string",
+            "format": "Фамилия",
+            "example": "Иванов"
+          },
+          "patronymicname": {
+            "type": "string",
+            "format": "Отчество (не обязательно)",
+            "example": "Иванович"
+          },
+          "password": {
+            "type": "string",
+            "format": "пароль (md5)",
+            "example": "43537179b1bbebea0034a52657ca27f5 (md5)"
+          }
+        }
+      },
+      "success_message": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "format": "Boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "format": "message",
+            "example": "Успешное выполнение"
+          }
+        }
+      },
+      "not_success_message": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "format": "Boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "format": "message",
+            "example": "Неудачное выполнение"
+          }
+        }
+      },
+      "register_code_mail": {
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string",
+            "format": "string",
+            "example": "test@test.ru"
+          }
+        }
+      },
+      "reset_password": {
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string",
+            "format": "string",
+            "example": "test@test.ru"
+          },
+          "password": {
+            "type": "string",
+            "format": "string",
+            "example": "e9280065c3866969967a69adefbdc301"
+          }
+        }
+      },
+      "success_message_code": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "format": "Boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "format": "message",
+            "example": "Успешное выполнение"
+          },
+          "code": {
+            "type": "integer",
+            "format": "code",
+            "example": 723115
+          }
+        }
+      }
+    }
+  }
+}

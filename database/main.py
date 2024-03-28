@@ -12,6 +12,7 @@ from database.db_cats.db_cats import *
 from database.db_breed.db_breed import *
 from database.db_color.db_color import *
 from database.db_gender.db_gender import *
+from database.db_cart.db_cart import *
 from database.base import base
 
 

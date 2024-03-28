@@ -17,4 +17,4 @@ class cats(base):
     breed_realt = relationship("breed", uselist=False, back_populates="bread_realt")
     color_realt = relationship("color", uselist=False, back_populates="color_realt")
     gender_realt = relationship("gender", uselist=False, back_populates="gender_realt")
-    cart_realt = relationship("cart")
+    # cart_realt = relationship("cart")

@@ -18,4 +18,4 @@ class user(base):
     show_cart = Column(Boolean, nullable=False, default=False)
     create_date = Column(DateTime, nullable=False)
     autme_realt = relationship("autme", uselist=False, back_populates="user_realt")
-    user_realt = relationship("user")
+    # cart_realt = relationship("cart")
