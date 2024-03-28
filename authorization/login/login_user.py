@@ -1,7 +1,7 @@
 import datetime
 
 from database.main import *
-from flask import request
+from flask import request, jsonify
 from authorization.md5.string_to_md5 import calculate_md5
 import jwt
 from config import SECRET_KEY_TOKEN
@@ -23,10 +23,10 @@ async def login(is_point=None):
                     autme_tok = autme_token(login=body["login"], token=token, device=body["device"], type_device=body["type_device"], date=date)
                     session.add(autme_tok)
                     session.commit()
-                    return {"success": True, "message": "Успешная авторизация", "token": token, "role": i.role}, 200
+                    return jsonify({"message": "Успешная авторизация", "token": token, "role": i.role}), 200
                 if i.isBan:
-                    return {"success": False, "message": "Ваш аккаунт заблокирован"}, 400
-                return {"success": False, "message": "Аккаунт с таким паролем не найден"}, 400
+                    return jsonify({"message": "Ваш аккаунт заблокирован"}), 400
+                return jsonify({"message": "Аккаунт с таким паролем не найден"}), 400
 
         if body["mail"] is not None:
             result = session.query(user).filter(user.mail == body["mail"])
@@ -42,15 +42,15 @@ async def login(is_point=None):
                     autme_tok = autme_token(login=i.login, token=token, device=body["device"], type_device=body["type_device"], date=date)
                     session.add(autme_tok)
                     session.commit()
-                    return {"success": True, "message": "Успешная авторизация", "token": token, "role": i.autme_realt.role}, 200
+                    return jsonify({"message": "Успешная авторизация", "token": token, "role": i.autme_realt.role}), 200
                 if i.autme_realt.isBan:
-                    return {"success": False, "message": "Ваш аккаунт заблокирован"}, 400
-                return {"success": False, "message": "Аккаунт с таким паролем не найден"}, 400
-        return {"success": False, "message": "Аккаунт с таким именем пользователя не найден"}, 400
+                    return jsonify({"message": "Ваш аккаунт заблокирован"}), 400
+                return jsonify({"message": "Аккаунт с таким паролем не найден"}), 400
+        return jsonify({"message": "Аккаунт с таким именем пользователя не найден"}), 400
     except Exception as e:
         try:
             session.rollback()
         except:
             pass
         print(e)
-        return {"success": False, "message": "Не так быстро"}, 400
+        return jsonify({"message": "Не так быстро"}), 400
