@@ -10,3 +10,5 @@ BASE_CONFIG = {
 
 CONFIG_MD5 = 119
 SECRET_KEY_TOKEN = "JIGF2@vwJE2f#$"
+
+picture_path = "user/picture/user"

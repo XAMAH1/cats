@@ -11,12 +11,15 @@ async def login(is_point=None):
     try:
         body = request.json   # login password device
         hash_password = calculate_md5(body["password"])
-        if body["login"] is not None:
+        is_mail = False
+        if "@" in body["login"][1:]:
+            is_mail = True
+        if not is_mail:
             result = session.query(autme).filter(autme.login == body["login"])
             for i in result:
-                if i.password == hash_password and not i.isBan:
+                if i.password == hash_password:
                     if body["device"] == "РС" or body["device"] == "PC" and i.role == 1:
-                        return {"success": False, "message": "Вы не имеете доступа к приложению"}, 400
+                        return jsonify({"message": "Вы не имеете доступа к приложению"}), 400
                     date = datetime.datetime.today()
                     token = jwt.encode({"login": body["login"], "user_id": i.user_realt.id, "date_time": str(date), "isPoint": is_point},
                                        SECRET_KEY_TOKEN, algorithm="HS256")
@@ -28,13 +31,13 @@ async def login(is_point=None):
                     return jsonify({"message": "Ваш аккаунт заблокирован"}), 400
                 return jsonify({"message": "Аккаунт с таким паролем не найден"}), 400
 
-        if body["mail"] is not None:
-            result = session.query(user).filter(user.mail == body["mail"])
+        if is_mail:
+            result = session.query(user).filter(user.mail == body["login"])
             for i in result:
-                if i.autme_realt.password == hash_password and not i.autme_realt.isBan:
+                if i.autme_realt.password == hash_password:
                     date = datetime.datetime.today()
                     if body["device"] == "РС" or body["device"] == "PC" and i.role == 1:
-                        return {"success": False, "message": "Вы не имеете доступа к приложению"}, 400
+                        return jsonify({"message": "Вы не имеете доступа к приложению"}), 400
                     if i.autme_realt.role_realt.name == "Сотрудник":
                         is_point = 0
                     token = jwt.encode({"login": i.login, "user_id": i.autme_realt.user_realt.id, "date_time": str(date), "isPoint": is_point},

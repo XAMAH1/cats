@@ -14,6 +14,7 @@ class cats(base):
     color = Column(Integer, ForeignKey('color.id'))
     sings = Column(String(255), nullable=False, default="Отсутвуют")
     gender = Column(Integer, ForeignKey('gender.id'))
+    price = Column(Double, nullable=False, default=0.0)
     breed_realt = relationship("breed", uselist=False, back_populates="bread_realt")
     color_realt = relationship("color", uselist=False, back_populates="color_realt")
     gender_realt = relationship("gender", uselist=False, back_populates="gender_realt")

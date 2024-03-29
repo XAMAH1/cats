@@ -31,7 +31,7 @@ async def register():
             firstname=body["firstname"],
             surname=body["surname"],
             patronymicname=body["patronymicname"],
-            profile_picture=r"picture/static/picture.png",
+            profile_picture=r"user/picture/static/picture.png",
             create_date=datetime.datetime.today()
         )
         session.add(new_user)
