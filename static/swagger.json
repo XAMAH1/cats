@@ -11,11 +11,17 @@
   "servers": [
     {
       "url": "http://88.206.63.184:5423/api"
+    },
+    {
+      "url": "http://localhost:5423/api"
     }
   ],
   "tags": [
     {
       "name": "Работа с пользователем"
+    },
+    {
+      "name": "Профиль пользователя"
     }
   ],
   "paths": {
@@ -186,6 +192,304 @@
           }
         }
       }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "Работа с пользователем"
+        ],
+        "summary": "Авторизация",
+        "description": "Авторизация пользователя. Имеется возможность авторизации как по логину так и по почте. Для авторизации по почте нужно в поле login указать почту",
+        "operationId": "loginUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login_user"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message_login"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "tags": [
+          "Профиль пользователя"
+        ],
+        "summary": "Информация о пользователи",
+        "operationId": "userInformation",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user_info"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Профиль пользователя"
+        ],
+        "summary": "Информация о пользователи",
+        "operationId": "putInformationUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/put_user_info"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/picture": {
+      "get": {
+        "tags": [
+          "Профиль пользователя"
+        ],
+        "summary": "Изображение профиля",
+        "operationId": "userPictureGet",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Изображение приходят в виде байтов"
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Профиль пользователя"
+        ],
+        "summary": "Изменение изображения профиля",
+        "operationId": "putPictureUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/picture_user_put"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Профиль пользователя"
+        ],
+        "summary": "Удаление изображения профиля",
+        "operationId": "удаление изображения профиля",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -268,11 +572,6 @@
       "success_message_code": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean",
-            "format": "Boolean",
-            "example": true
-          },
           "message": {
             "type": "string",
             "format": "message",
@@ -282,6 +581,131 @@
             "type": "integer",
             "format": "code",
             "example": 723115
+          }
+        }
+      },
+      "success_message_login": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "format": "message",
+            "example": "Успешное выполнение"
+          },
+          "role": {
+            "type": "integer",
+            "format": "code",
+            "example": 1
+          },
+          "token": {
+            "type": "string",
+            "format": "code",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InhhbWFoIiwidXNlcl9pZCI6MSwiZGF0ZV90aW1lIjoiMjAyNC0wMy0yOSAxMjozMDoyNC4wNDYyODUiLCJpc1BvaW50IjpudWxsfQ.Gq5M7cFig44leeq9G18benJM6T5QTc1_3_mXhcMZtxk"
+          }
+        }
+      },
+      "login_user": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "format": "login",
+            "example": "test or test@test.ru"
+          },
+          "device": {
+            "type": "string",
+            "format": "Для мобильных устройств модель телефона",
+            "example": "Huawei A91 or Browser"
+          },
+          "type_device": {
+            "type": "string",
+            "format": "ОС",
+            "example": "Android or Linux"
+          },
+          "password": {
+            "type": "string",
+            "format": "пароль (md5)",
+            "example": "43537179b1bbebea0034a52657ca27f5 (md5)"
+          }
+        }
+      },
+      "user_info": {
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string",
+            "format": "mail",
+            "example": "test@test.ru"
+          },
+          "age": {
+            "type": "string",
+            "format": "date (Именно в таком формате)",
+            "example": "20 10 1999"
+          },
+          "firstname": {
+            "type": "string",
+            "format": "Имя",
+            "example": "Иван"
+          },
+          "surname": {
+            "type": "string",
+            "format": "Фамилия",
+            "example": "Иванов"
+          },
+          "patronymicname": {
+            "type": "string",
+            "format": "Отчество (не обязательно)",
+            "example": "Иванович"
+          },
+          "show_cart": {
+            "type": "boolean",
+            "format": "отображение корзины остальным пользователям",
+            "example": false
+          }
+        }
+      },
+      "put_user_info": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string",
+            "format": "Имя",
+            "example": "Иван"
+          },
+          "surname": {
+            "type": "string",
+            "format": "Фамилия",
+            "example": "Иванов"
+          },
+          "patronymicname": {
+            "type": "string",
+            "format": "Отчество (не обязательно)",
+            "example": "Иванович"
+          },
+          "show_cart": {
+            "type": "boolean",
+            "format": "отображение корзины остальным пользователям",
+            "example": false
+          }
+        }
+      },
+      "picture_user_put": {
+        "type": "object",
+        "properties": {
+          "photo": {
+            "type": "string",
+            "format": "Изображаение в одном из форматов: jpg, jpeg, png, bmp, tiff",
+            "example": "Изображаение в одном из форматов: jpg, jpeg, png, bmp, tiff"
+          }
+        }
+      },
+      "user_token": {
+        "type": "object",
+        "properties": {
+          "Authorization": {
+            "type": "string",
+            "format": "Токен пользователя",
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InhhbWFoIiwidXNlcl9pZCI6MSwiZGF0ZV90aW1lIjoiMjAyNC0wMy0yOSAxMjo0NzoyMi4xOTAxNzEiLCJpc1BvaW50IjpudWxsfQ.Q0caml8eX57HSbiSErM3hBZYu_64kadGqC_akj8eK98"
           }
         }
       }
