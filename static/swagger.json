@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://88.206.63.184:5423/api"
+      "url": "http://eco-74.online:5423/api"
     },
     {
       "url": "http://localhost:5423/api"
@@ -22,6 +22,15 @@
     },
     {
       "name": "Профиль пользователя"
+    },
+    {
+      "name": "Порода кота"
+    },
+    {
+      "name": "Окрас кота"
+    },
+    {
+      "name": "Гендер кота"
     }
   ],
   "paths": {
@@ -490,6 +499,873 @@
           }
         }
       }
+    },
+    "/breed": {
+      "get": {
+        "tags": [
+          "Порода кота"
+        ],
+        "summary": "Получение всех пород",
+        "operationId": "breedGetAll",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/breed"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Порода кота"
+        ],
+        "summary": "Добавление новой породы",
+        "operationId": "breedNew",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_config"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/breed/{breedId}": {
+      "get": {
+        "tags": [
+          "Порода кота"
+        ],
+        "summary": "Получение определенной породы",
+        "operationId": "breedGetCurrent",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "breedId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Порода кота"
+        ],
+        "summary": "Изменение породы",
+        "operationId": "breedPut",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "breedId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_config"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Порода кота"
+        ],
+        "summary": "Удаление породы",
+        "operationId": "breedDelete",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "breedId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/color": {
+      "get": {
+        "tags": [
+          "Окрас кота"
+        ],
+        "summary": "Получение всех окрасов",
+        "operationId": "colorGetAll",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/color"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Окрас кота"
+        ],
+        "summary": "Добавление нового окраса",
+        "operationId": "colorNew",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_config"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/color/{colorId}": {
+      "get": {
+        "tags": [
+          "Окрас кота"
+        ],
+        "summary": "Получение определенного окраса",
+        "operationId": "colorGetCurrent",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "colorId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Окрас кота"
+        ],
+        "summary": "Изменение окраса",
+        "operationId": "colorPut",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "colorId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_config"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Окрас кота"
+        ],
+        "summary": "Удаление окраса",
+        "operationId": "colorDelete",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "colorId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gender": {
+      "get": {
+        "tags": [
+          "Гендер кота"
+        ],
+        "summary": "Получение всех гендеров",
+        "operationId": "genderGetAll",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gender"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Гендер кота"
+        ],
+        "summary": "Добавление нового гендера",
+        "operationId": "genderNew",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_config"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gender/{genderId}": {
+      "get": {
+        "tags": [
+          "Гендер кота"
+        ],
+        "summary": "Получение определенного гендера",
+        "operationId": "genderGetCurrent",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "genderId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Гендер кота"
+        ],
+        "summary": "Изменение гендера",
+        "operationId": "genderPut",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "genderId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/new_config"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Гендер кота"
+        ],
+        "summary": "Удаление гендера",
+        "operationId": "genderDelete",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "genderId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -706,6 +1582,61 @@
             "type": "string",
             "format": "Токен пользователя",
             "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InhhbWFoIiwidXNlcl9pZCI6MSwiZGF0ZV90aW1lIjoiMjAyNC0wMy0yOSAxMjo0NzoyMi4xOTAxNzEiLCJpc1BvaW50IjpudWxsfQ.Q0caml8eX57HSbiSErM3hBZYu_64kadGqC_akj8eK98"
+          }
+        }
+      },
+      "breed": {
+        "type": "object",
+        "properties": {
+          "breed": {
+            "$ref": "#/components/schemas/array_format"
+          }
+        }
+      },
+      "color": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/components/schemas/array_format"
+          }
+        }
+      },
+      "gender": {
+        "type": "object",
+        "properties": {
+          "gender": {
+            "$ref": "#/components/schemas/array_format"
+          }
+        }
+      },
+      "array_format": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/format_info"
+        }
+      },
+      "format_info": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "Идентификатор",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "format": "Название",
+            "example": "Пример"
+          }
+        }
+      },
+      "new_config": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "Название",
+            "example": "Пример"
           }
         }
       }

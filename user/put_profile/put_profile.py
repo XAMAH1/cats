@@ -4,13 +4,15 @@ from flask import request, jsonify
 from authorization.auth.auth import decorator_autme_user
 from config import SECRET_KEY_TOKEN
 from database.main import *
+from get_token.get_token import get_token
 
 
 @decorator_autme_user
 async def put_user_profile():
     try:
         body = request.json
-        token = jwt.decode(request.headers["Authorization"].split()[1], SECRET_KEY_TOKEN, algorithms=["HS256"])
+        token = get_token()
+        token = jwt.decode(token, SECRET_KEY_TOKEN, algorithms=["HS256"])
         result_user = session.query(user).filter(user.login == token["login"])
         for i in result_user:
             if "firstname" in body:

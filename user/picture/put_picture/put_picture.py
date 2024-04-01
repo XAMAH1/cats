@@ -5,12 +5,15 @@ import jwt
 from config import SECRET_KEY_TOKEN, picture_path
 import os
 
+from get_token.get_token import get_token
+
 image_formats = ['jpg', 'jpeg', 'png', 'bmp', 'tiff']
 
 @decorator_autme_user
 async def put_user_picture():
     try:
-        token = jwt.decode(request.headers["Authorization"].split()[1], SECRET_KEY_TOKEN, algorithms=["HS256"])
+        token = get_token()
+        token = jwt.decode(token, SECRET_KEY_TOKEN, algorithms=["HS256"])
         photo = request.files['photo']
         if not photo:
             return jsonify({"message": "Выберите фото "}), 400

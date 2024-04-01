@@ -5,9 +5,13 @@ import jwt
 from config import SECRET_KEY_TOKEN
 import os
 
+from get_token.get_token import get_token
+
+
 @decorator_autme_user
 async def delete_picture_user():
-    token = jwt.decode(request.headers["Authorization"].split()[1], SECRET_KEY_TOKEN, algorithms=["HS256"])
+    token = get_token()
+    token = jwt.decode(token, SECRET_KEY_TOKEN, algorithms=["HS256"])
     try:
         result = session.query(user).filter(user.login == token["login"])
         for i in result:

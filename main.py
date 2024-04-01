@@ -1,8 +1,12 @@
 from flask import *
 
+from breed.main import breed_configurator
+from cats.main import cats_profile
+from color.main import color_configurator
 from database.main import *
 from config import API_HOST, API_PORT
 from authorization.main import authorization
+from gender.main import gender_configurator
 from swagger.main import swaggerui_blueprint
 from user.main import user_profile
 
@@ -11,6 +15,10 @@ app = Flask(__name__)
 
 app.register_blueprint(swaggerui_blueprint)
 app.register_blueprint(authorization, url_prefix="/api/user")
+app.register_blueprint(cats_profile, url_prefix="/api/cats")
+app.register_blueprint(breed_configurator, url_prefix="/api")
+app.register_blueprint(color_configurator, url_prefix="/api")
+app.register_blueprint(gender_configurator, url_prefix="/api")
 app.register_blueprint(user_profile, url_prefix="/api/user")
 
 

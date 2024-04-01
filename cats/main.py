@@ -6,14 +6,11 @@ from user.get_profile.get_profile import get_user_profile
 from user.picture.main import user_profile_picture
 from user.put_profile.put_profile import put_user_profile
 
-user_profile = Blueprint('user_profile', __name__)
-user_profile.register_blueprint(user_profile_picture)
+cats_profile = Blueprint('cats_profile', __name__)
 
 
-@user_profile.route("/profile", methods=["GET", "PUT", "OPTIONS"])
+@cats_profile.route("/new", methods=["POST"])
 @decorator_options
 def get_user():
-    if request.method == "GET":
+    if request.method == "POST":
         return asyncio.run(get_user_profile())
-    if request.method == "PUT":
-        return asyncio.run(put_user_profile())

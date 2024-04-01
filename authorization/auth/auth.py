@@ -26,9 +26,14 @@ def decorator_autme_admin(func, *args, **kwargs):
     except Exception as e:
         return jsonify({"message": "Укажите токен"}), 401
 
+
 def auth():
     try:
-        token = request.headers["Authorization"].split()[1]
+        token = ""
+        if "Authorization" in request.headers:
+            token = request.headers["Authorization"].split()[1]
+        if "Security" in request.headers:
+            token = request.headers["Security"].split()[1]
         result = session.query(autme_token).filter(autme_token.token == token)
         for i in result:
             return {"success": True}
@@ -45,7 +50,11 @@ def auth():
 
 def auth_admin():
     try:
-        token = request.headers["Authorization"].split()[1]
+        token = ""
+        if "Authorization" in request.headers:
+            token = request.headers["Authorization"].split()[1]
+        if "Security" in request.headers:
+            token = request.headers["Security"].split()[1]
         result = session.query(autme_token).filter(autme_token.token == token)
         for i in result:
             if i.autme_realt.role == 2:
