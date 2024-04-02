@@ -3,12 +3,16 @@ from flask import request, jsonify
 from database.main import *
 from authorization.auth.auth import decorator_autme_admin
 
+
 @decorator_autme_admin
 async def update_breed(breed_id):
     try:
         body = request.json
         check_breed = session.query(breed).filter(breed.id == breed_id)
         for i in check_breed:
+            result = session.query(breed).filter(breed.name == body["name"])
+            for j in result:
+                return jsonify({"message": "Ошибка! Такая порода уже зарегистрирована!"}), 400
             i.name = body["name"]
             session.commit()
             return jsonify({"message": "Изменения успешно внесены"}), 200

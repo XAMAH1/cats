@@ -9,6 +9,9 @@ async def update_gender(gender_id):
         body = request.json
         check_gender = session.query(gender).filter(gender.id == gender_id)
         for i in check_gender:
+            result = session.query(gender).filter(gender.name == body["name"])
+            for j in result:
+                return jsonify({"message": "Ошибка! Такой гендер уже зарегистрирован!"}), 400
             i.name = body["name"]
             session.commit()
             return jsonify({"message": "Изменения успешно внесены"}), 200

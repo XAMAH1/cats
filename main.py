@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 app.register_blueprint(swaggerui_blueprint)
 app.register_blueprint(authorization, url_prefix="/api/user")
-app.register_blueprint(cats_profile, url_prefix="/api/cats")
+app.register_blueprint(cats_profile, url_prefix="/api")
 app.register_blueprint(breed_configurator, url_prefix="/api")
 app.register_blueprint(color_configurator, url_prefix="/api")
 app.register_blueprint(gender_configurator, url_prefix="/api")

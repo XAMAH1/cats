@@ -31,6 +31,9 @@
     },
     {
       "name": "Гендер кота"
+    },
+    {
+      "name": "Позиции"
     }
   ],
   "paths": {
@@ -761,7 +764,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/format_info"
+                  "$ref": "#/components/schemas/success_message"
                 }
               }
             }
@@ -1050,7 +1053,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/format_info"
+                  "$ref": "#/components/schemas/success_message"
                 }
               }
             }
@@ -1339,7 +1342,296 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/format_info"
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cats": {
+      "get": {
+        "tags": [
+          "Позиции"
+        ],
+        "summary": "Получение всех поизиций",
+        "operationId": "catsGetAll",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cats"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Позиции"
+        ],
+        "summary": "Добавление новой позиции",
+        "operationId": "catsNew",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/put_format_cats"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cats/{catsId}": {
+      "get": {
+        "tags": [
+          "Позиции"
+        ],
+        "summary": "Получение определенной позиции",
+        "operationId": "catsGetCurrent",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "catsId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info_cats"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Позиции"
+        ],
+        "summary": "Изменение позиции",
+        "operationId": "catsPut",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "catsId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/put_format_cats"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Позиции"
+        ],
+        "summary": "Удаление позиции",
+        "operationId": "catsDelete",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "catsId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
                 }
               }
             }
@@ -1637,6 +1929,105 @@
             "type": "string",
             "format": "Название",
             "example": "Пример"
+          }
+        }
+      },
+      "cats": {
+        "type": "object",
+        "properties": {
+          "cats": {
+            "$ref": "#/components/schemas/array_format_cats"
+          }
+        }
+      },
+      "array_format_cats": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/format_info_cats"
+        }
+      },
+      "format_info_cats": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "Идентификатор",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "format": "Имя",
+            "example": "Пример"
+          },
+          "breed": {
+            "type": "string",
+            "format": "Порода",
+            "example": "Британская короткошёрстная"
+          },
+          "color": {
+            "type": "string",
+            "format": "Окрас",
+            "example": "серый"
+          },
+          "gender": {
+            "type": "string",
+            "format": "Пол",
+            "example": "мужской"
+          },
+          "age": {
+            "type": "string",
+            "format": "Дата рождения",
+            "example": "Британская короткошёрстная"
+          },
+          "sings": {
+            "type": "string",
+            "format": "Отличительные приметы",
+            "example": "Отсутвуют"
+          },
+          "price": {
+            "type": "number",
+            "format": "Цена",
+            "example": 2499.9
+          }
+        }
+      },
+      "put_format_cats": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "Имя",
+            "example": "Пример"
+          },
+          "breed": {
+            "type": "string",
+            "format": "Порода",
+            "example": "Британская короткошёрстная"
+          },
+          "color": {
+            "type": "string",
+            "format": "Окрас",
+            "example": "серый"
+          },
+          "gender": {
+            "type": "string",
+            "format": "Пол",
+            "example": "мужской"
+          },
+          "age": {
+            "type": "string",
+            "format": "Дата рождения",
+            "example": "Британская короткошёрстная"
+          },
+          "sings": {
+            "type": "string",
+            "format": "Отличительные приметы",
+            "example": "Отсутвуют"
+          },
+          "price": {
+            "type": "number",
+            "format": "Цена",
+            "example": 2499.9
           }
         }
       }

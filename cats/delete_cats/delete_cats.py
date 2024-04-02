@@ -5,10 +5,10 @@ from authorization.auth.auth import decorator_autme_admin
 
 
 @decorator_autme_admin
-async def delete_color(color_id):
+async def delete_cats(cats_id):
     try:
-        session.query(color).filter(color.id == color_id).delete()
-        return jsonify({"message": "Окрас успешно удален"}), 200
+        session.query(cats).filter(cats.id == cats_id).delete()
+        return jsonify({"message": "Позиция успешно удалена"}), 200
     except Exception as e:
         print(e)
         session.rollback()
