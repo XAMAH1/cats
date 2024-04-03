@@ -34,6 +34,9 @@
     },
     {
       "name": "Позиции"
+    },
+    {
+      "name": "Корзина"
     }
   ],
   "paths": {
@@ -1658,6 +1661,279 @@
           }
         }
       }
+    },
+    "/cart": {
+      "get": {
+        "tags": [
+          "Корзина"
+        ],
+        "summary": "Получение корзины",
+        "operationId": "cartGetAll",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cart"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Корзина"
+        ],
+        "summary": "Добавление в корзину",
+        "operationId": "cartNew",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/add_cart"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Корзина"
+        ],
+        "summary": "Удаление корзины",
+        "operationId": "cartDeleteAll",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/copy/{cartId}": {
+      "post": {
+        "tags": [
+          "Корзина"
+        ],
+        "summary": "Копирование корзины другого пользователя",
+        "operationId": "cartPutCurrent",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "Идентификатор пользователя у которого необходимо скопировать корзину",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/format_info_cats"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/{cartId}": {
+      "delete": {
+        "tags": [
+          "Корзина"
+        ],
+        "summary": "Удаление конкретной позиции в корзине",
+        "operationId": "cartPut",
+        "parameters": [
+          {
+            "name": "security",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/user_token"
+            }
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "description": "Идентификатор позиции",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Клиент не авторизован)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success_message"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1946,6 +2222,33 @@
           "$ref": "#/components/schemas/format_info_cats"
         }
       },
+      "array_format_cart": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/cart_add_id"
+        }
+      },
+      "cart": {
+        "type": "object",
+        "properties": {
+          "cart": {
+            "$ref": "#/components/schemas/array_format_cart"
+          }
+        }
+      },
+      "cart_add_id": {
+        "type": "object",
+        "properties": {
+          "cats": {
+            "$ref": "#/components/schemas/format_info_cats"
+          },
+          "id": {
+            "type": "integer",
+            "format": "Идентификатор",
+            "example": 1
+          }
+        }
+      },
       "format_info_cats": {
         "type": "object",
         "properties": {
@@ -2028,6 +2331,16 @@
             "type": "number",
             "format": "Цена",
             "example": 2499.9
+          }
+        }
+      },
+      "add_cart": {
+        "type": "object",
+        "properties": {
+          "cats_id": {
+            "type": "string",
+            "format": "mail",
+            "example": "test@test.ru"
           }
         }
       }

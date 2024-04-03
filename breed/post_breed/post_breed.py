@@ -3,6 +3,7 @@ from flask import request, jsonify
 from database.main import *
 from authorization.auth.auth import decorator_autme_admin
 
+
 @decorator_autme_admin
 async def new_breed():
     try:

@@ -7,6 +7,7 @@ from authorization.auth.auth import decorator_autme_admin
 async def delete_gender(gender_id):
     try:
         session.query(gender).filter(gender.id == gender_id).delete()
+        session.commit()
         return jsonify({"message": "Пол успешно удален"}), 200
     except Exception as e:
         print(e)
