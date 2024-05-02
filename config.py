@@ -1,4 +1,4 @@
-API_HOST = ["localhost"]
+API_HOST = ["10.8.0.3"]
 API_PORT = 5423
 
 BASE_CONFIG = {

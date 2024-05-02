@@ -10,11 +10,15 @@
   },
   "servers": [
     {
+      "url": "https://ilya.eco-74.ru/api"
+    },
+    {
       "url": "http://eco-74.online:5423/api"
     },
     {
       "url": "http://localhost:5423/api"
-    }
+    },
+
   ],
   "tags": [
     {
@@ -1817,7 +1821,7 @@
         }
       }
     },
-    "/cart/copy/{cartId}": {
+    "/cart/copy/{userId}": {
       "post": {
         "tags": [
           "Корзина"
@@ -1833,7 +1837,7 @@
             }
           },
           {
-            "name": "cartId",
+            "name": "userId",
             "in": "path",
             "description": "Идентификатор пользователя у которого необходимо скопировать корзину",
             "required": true,

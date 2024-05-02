@@ -1,4 +1,5 @@
 from flask import *
+from flask_cors import CORS, cross_origin
 
 from breed.main import breed_configurator
 from cart.main import cart_user
@@ -12,6 +13,8 @@ from swagger.main import swaggerui_blueprint
 from user.main import user_profile
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 app.register_blueprint(swaggerui_blueprint)

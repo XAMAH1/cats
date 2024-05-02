@@ -1,5 +1,6 @@
 import asyncio
 from flask import Blueprint, request
+from flask_cors import cross_origin
 
 from color.delete_color.delete_color import delete_color
 from color.get_color.get_all_color import get_all_color
@@ -11,6 +12,7 @@ color_configurator = Blueprint('color_configurator', __name__)
 
 
 @color_configurator.route("/color", methods=["POST", "GET"])
+@cross_origin()
 def all_color():
     if request.method == "POST":
         return asyncio.run(new_color())
@@ -19,6 +21,7 @@ def all_color():
 
 
 @color_configurator.route("/color/<int:color_id>", methods=["PUT", "GET", "DELETE"])
+@cross_origin()
 def current_color(color_id):
     if request.method == "PUT":
         return asyncio.run(update_color(color_id))

@@ -1,5 +1,6 @@
 import asyncio
 from flask import Blueprint, request
+from flask_cors import cross_origin
 
 from cats.delete_cats.delete_cats import delete_cats
 from cats.get_cats.get_cats_all import get_all_cats
@@ -12,7 +13,7 @@ cats_profile = Blueprint('cats_profile', __name__)
 
 
 @cats_profile.route("/cats", methods=["POST", "GET"])
-@decorator_options
+@cross_origin()
 def cats_all():
     if request.method == "POST":
         return asyncio.run(new_cats())
@@ -21,6 +22,7 @@ def cats_all():
 
 
 @cats_profile.route("/cats/<int:cats_id>", methods=["PUT", "GET", "DELETE"])
+@cross_origin()
 def current_color(cats_id):
     if request.method == "PUT":
         return asyncio.run(update_cats(cats_id))

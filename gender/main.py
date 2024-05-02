@@ -1,5 +1,6 @@
 import asyncio
 from flask import Blueprint, request
+from flask_cors import cross_origin
 
 from gender.delete_gender.delete_gender import delete_gender
 from gender.get_gender.get_all_gender import get_all_gender
@@ -11,6 +12,7 @@ gender_configurator = Blueprint('gender_configurator', __name__)
 
 
 @gender_configurator.route("/gender", methods=["POST", "GET"])
+@cross_origin()
 def all_color():
     if request.method == "POST":
         return asyncio.run(new_gender())
@@ -19,6 +21,7 @@ def all_color():
 
 
 @gender_configurator.route("/gender/<int:gender_id>", methods=["PUT", "GET", "DELETE"])
+@cross_origin()
 def current_color(gender_id):
     if request.method == "PUT":
         return asyncio.run(update_gender(gender_id))
